@@ -1,0 +1,204 @@
+/* 🌿 Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+/* 🌿 GLOBAL */
+:root {
+  --primary-green: #6a8f72;
+  --background-light: #fafaf4;
+  --text-dark: #2f2f2f;
+  --muted-gray: #a8a8a8;
+  --card-bg: #ffffff;
+}
+
+.dashboard-page {
+  margin-left: 250px;
+  padding-top: 10px;
+  padding-left: 50px;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--background-light);
+  min-height: 100vh;
+  color: var(--text-dark);
+}
+
+.kpi-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.kpi-card {
+  flex: 1;
+  background: var(--card-bg);
+  padding: 28px 24px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.25s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.10);
+}
+
+.kpi-card-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted-gray);
+}
+
+.kpi-card-value {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+/* 🌿 ANALYTICS ROW (Pie + Heatmap) */
+.analytics-row {
+  display: flex;
+  gap: 22px;
+  margin-top: 15px;
+}
+
+.analytics-box {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  width: 550px;   /* adjust as needed */
+  height: 380px;  /* adjust as needed */
+}
+
+.analytics-title {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+/* Full-width Line Chart */
+.line-chart-section {
+  margin-top: 25px;
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 🌿 RESPONSIVE */
+@media (max-width: 992px) {
+  .kpi-container {
+    flex-direction: column;
+  }
+
+  .analytics-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 20px;
+    margin-left: 0; /* sidebar collapsible later if needed */
+  }
+}
+
+/* 🔥 Split analytics into 2 columns */
+.analytics-split {
+  display: flex;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+/* LEFT SIDE: Pie + Line stacked */
+.analytics-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* RIGHT SIDE: Heatmap */
+.analytics-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure line chart box has extra height */
+.line-box {
+  padding-top: 25px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .analytics-split {
+    flex-direction: column;
+  }
+}
+
+.analytics-container {
+  display: flex;
+  gap: 20px;
+}
+
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-panel {
+  flex: 1;
+}
+
+.top-row,
+.bottom-row {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.india-map-container {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-legend {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.legend-title {
+  font-size: 13px;
+  color: #4b4b4b;
+  font-weight: 600;
+}
+
+.gradient-bar {
+  height: 10px;
+  width: 160px;
+  margin: 6px 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #edf8e9, #2ca25f);
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 160px;
+  font-size: 11px;
+  color: #555;
+}
+
