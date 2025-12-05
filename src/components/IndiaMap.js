@@ -648,7 +648,7 @@ export default function IndiaMap() {
   const [topo, setTopo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+  const [dimensions, setDimensions] = useState({ width: 100, height: 100 });
   const [tooltip, setTooltip] = useState({
     text: "",
     x: 0,
@@ -660,8 +660,8 @@ export default function IndiaMap() {
     const updateDimensions = () => {
       const container = document.querySelector('.analytics-right');
       if (container) {
-        const width = container.clientWidth - 40; // padding
-        const height = Math.min(width * 0.75, 600); // maintain aspect ratio
+        const width = container.clientWidth - 20; // padding
+        const height = Math.min(width * 0.85, 600); // maintain aspect ratio
         setDimensions({ width, height });
       } else {
         // Fallback if container not found

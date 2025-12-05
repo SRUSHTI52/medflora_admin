@@ -18,8 +18,9 @@ import { Link } from "react-router-dom";
 export default function Sidebar() {
   return (
     <div className="sidebar">
-      <h1 className="sidebar-logo">🌱 MedFlora</h1>
-      <ul>
+      <Link to="/dashboard">
+        <h1 className="sidebar-logo cursor-pointer">🌱 MedFlora</h1>
+      </Link>      <ul>
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/curators">Curators</Link>
         <Link to="/database">Database</Link>

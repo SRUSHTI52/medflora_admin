@@ -1,0 +1,174 @@
+/* Prevent sidebar overlay */
+.curators-container {
+  display: flex;
+}
+
+/* Align page beside sidebar */
+.curators-main {
+  margin-left: 270px; /* Same width as sidebar */
+  width: calc(100% - 250px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content area below topbar */
+.curators-content {
+  padding: 24px;
+}
+
+/* Titles */
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.section-title.mt {
+  margin-top: 32px;
+}
+
+/* Top contributor list */
+.top-list {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  list-style: none;
+}
+
+.top-item {
+  padding: 8px 0;
+  font-weight: 600;
+}
+
+/* Table */
+.curators-table {
+  width: 100%;
+  background: white;
+  border-radius: 6px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.curators-table th {
+  background: #6a8f72;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.curators-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.curators-table tr:hover {
+  background: #f7f7f7;
+  transition: 0.2s;
+}
+
+
+
+
+
+
+
+
+
+
+/* Invite button */
+.invite-btn {
+  background: #065f46;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: 0.2s;
+}
+.invite-btn:hover {
+  background: #047857;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Box */
+.modal-box {
+  background: white;
+  padding: 24px;
+  width: 440px;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.modal-box label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 12px;
+  display: block;
+}
+
+.modal-box input,
+.modal-box textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Buttons inside modal */
+.send-btn {
+  background: #065f46;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.send-btn:hover {
+  background: #047857;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.cancel-btn:hover {
+  background: #d1d5db;
+}
+
+/* Modal animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

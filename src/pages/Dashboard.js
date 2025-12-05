@@ -152,13 +152,14 @@ import { Pie, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import "../styles/dashboard.css";
 import IndiaMap from "../components/IndiaMap";
+import { scaleQuantize } from "d3-scale";
 
 export default function Dashboard() {
   const pieData = {
     labels: ["Neem", "Aloe Vera", "Tulsi", "Ashwagandha"],
     datasets: [{
       data: [40, 25, 20, 15],
-      backgroundColor: ["#6A8F72", "#90B799", "#A7C4A2", "#C5DCC6"]
+      backgroundColor: ["#ff891bff", "#ffc35bff", "#ffd477ff", "#fff6afff"]
     }],
   };
 
@@ -167,7 +168,7 @@ export default function Dashboard() {
     datasets: [{
       label: "Confidence Score",
       data: [0.70, 0.85, 0.78, 0.92, 0.88],
-      borderColor: "#6A8F72",
+      borderColor: "#c43fa7ff",
       tension: 0.4
     }],
   };
@@ -178,6 +179,10 @@ export default function Dashboard() {
     { state: "Kerala", count: 60 },
     { state: "Tamil Nadu", count: 50 },
   ];
+
+  const colorScale = scaleQuantize()
+  .domain([10, 200])
+  .range(["#dae7efff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"]);
 
   return (
     <div className="dashboard-page">
@@ -204,7 +209,19 @@ export default function Dashboard() {
   <div className="analytics-left">
     <div className="analytics-box">
       <h3 className="analytics-title">Most Searched Plants</h3>
-      <Pie data={pieData} />
+      {/* <Pie data={pieData} /> */}
+<Pie 
+  data={pieData}
+  options={{
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "right" }
+    }
+  }}
+/>
+
+
     </div>
 
     <div className="analytics-box line-box">
@@ -214,41 +231,14 @@ export default function Dashboard() {
   </div>
 
   {/* RIGHT COLUMN — INDIA HEATMAP */}
-  <div className="analytics-box analytics-right">
-
-    {/* HEATMAP CHART */}
-    {/* <IndiaMap data={heatmapData} /> */}
+  <div className="analytics-right">
     <IndiaMap/>
+    {/* Legend */}
+  
+
   </div>
 
 </div>
-
-      {/* PIE + HEATMAP ROW */}
-      {/* <div className="analytics-row">
-        <div className="analytics-box">
-          <h3 className="analytics-title">Most Searched Plants</h3>
-          <Pie data={pieData} />
-        </div>
-
-        <div className="analytics-box">
-          <h3 className="analytics-title">Geological Heatmap</h3>
-          <table className="w-full">
-            <tbody>
-              {heatmapData.map((s) => (
-                <tr key={s.state}>
-                  <td className="py-2">{s.state}</td>
-                  <td className="py-2 font-semibold">{s.count} plants</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
-
-      {/* <div className="line-chart-section">
-        <h3 className="analytics-title">Trend Analysis</h3>
-        <Line data={lineData} />
-      </div> */}
     </div>
   );
 }
