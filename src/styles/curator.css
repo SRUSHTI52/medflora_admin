@@ -1,22 +1,18 @@
-/* Prevent sidebar overlay */
 .curators-container {
   display: flex;
 }
 
-/* Align page beside sidebar */
 .curators-main {
-  margin-left: 270px; /* Same width as sidebar */
+  margin-left: 270px; 
   width: calc(100% - 250px);
   display: flex;
   flex-direction: column;
 }
 
-/* Content area below topbar */
 .curators-content {
   padding: 24px;
 }
 
-/* Titles */
 .section-title {
   font-size: 22px;
   font-weight: bold;
@@ -27,7 +23,6 @@
   margin-top: 32px;
 }
 
-/* Top contributor list */
 .top-list {
   background: #fff;
   border-radius: 6px;
@@ -41,7 +36,6 @@
   font-weight: 600;
 }
 
-/* Table */
 .curators-table {
   width: 100%;
   background: white;
@@ -69,15 +63,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-/* Invite button */
 .invite-btn {
   background: #065f46;
   color: white;
@@ -91,7 +76,6 @@
   background: #047857;
 }
 
-/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -105,7 +89,6 @@
   align-items: center;
 }
 
-/* Modal Box */
 .modal-box {
   background: white;
   padding: 24px;
@@ -145,7 +128,6 @@
   gap: 10px;
 }
 
-/* Buttons inside modal */
 .send-btn {
   background: #065f46;
   color: white;
@@ -167,7 +149,6 @@
   background: #d1d5db;
 }
 
-/* Modal animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }

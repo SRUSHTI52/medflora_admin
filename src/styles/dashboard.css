@@ -1,7 +1,5 @@
-/* 🌿 Font Import */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-/* 🌿 GLOBAL */
 :root {
   --primary-green: #6a8f72;
   --background-light: #fafaf4;
@@ -57,22 +55,12 @@
   color: var(--primary-green);
 }
 
-/* 🌿 ANALYTICS ROW (Pie + Heatmap) */
 .analytics-row {
   display: flex;
   gap: 22px;
   margin-top: 15px;
 }
 
-/* .analytics-box {
-  flex: 1;
-  background: var(--card-bg);
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-  width: 550px;  
-  height: 380px; 
-} */
 
 .analytics-title {
   font-size: 17px;
@@ -81,7 +69,6 @@
   color: var(--text-dark);
 }
 
-/* Full-width Line Chart */
 .line-chart-section {
   margin-top: 25px;
   width: 100%;
@@ -91,7 +78,6 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* 🌿 RESPONSIVE */
 @media (max-width: 992px) {
   .kpi-container {
     flex-direction: column;
@@ -105,30 +91,17 @@
 @media (max-width: 768px) {
   .dashboard-page {
     padding: 20px;
-    margin-left: 0; /* sidebar collapsible later if needed */
+    margin-left: 0; 
   }
 }
 
-/* 🔥 Split analytics into 2 columns */
-/* .analytics-split {
-  display: flex;
-  gap: 22px;
-  margin-top: 20px;
-} */
  .analytics-split {
   display: flex;
   gap: 22px;
   margin-top: 2px;
-  height: calc(100vh - 250px); /* fills screen beautifully */
+  height: calc(100vh - 250px); 
 }
 
-/* LEFT SIDE: Pie + Line stacked */
-/* .analytics-left {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-} */
  .analytics-left {
   flex: 1;
   display: flex;
@@ -136,28 +109,19 @@
   gap: 22px;
 }
 
-/* RIGHT SIDE: Heatmap */
-/* .analytics-right {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
 .analytics-right {
-  flex: 1.5; /* gives map more width */
-  display: flex;
+  flex: 1.5;
+  min-height: 520px;
   align-items: stretch;
   justify-content: stretch;
   height: 100%;
   padding: 0;
 }
 
-/* Ensure line chart box has extra height */
 .line-box {
   padding-top: 25px;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
   .analytics-split {
     flex-direction: column;
@@ -224,10 +188,8 @@
 }
 
 .analytics-box {
-  /* background: var(--card-bg); */
   border-radius: 14px;
   padding: 8px;
-  /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); */
   height: 40%;
   width: 70%;
   display: flex;
@@ -235,12 +197,11 @@
   flex-direction: column;
 }
 
-/* Balance heights for Pie (top) and Line (bottom) */
 .analytics-left > .analytics-box:first-child {
-  flex: 0.27; /* pie */
+  flex: 0.27; 
 }
 .analytics-left > .analytics-box:last-child {
-  flex: 0.53; /* line */
-  padding-top: 24px; /* little breathing space */
+  flex: 0.53;
+  padding-top: 24px; 
 }
 
