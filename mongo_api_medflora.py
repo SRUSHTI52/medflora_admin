@@ -32,10 +32,10 @@ CORS(
 )
 # --- MongoDB Configuration ---
 # CRITICAL: Using the new collection name 'medflora_final_data_v2'
-MONGO_URI = "mongodb+srv://srushtiporiwade02:happy49@cluster0.qa50c0v.mongodb.net/"
+MONGO_URI = "your_mongo_uri"
 MONGO_DB_NAME = "Plants"
 PLANT_COLLECTION_NAME = "medflora_final_data_v2"
-app.config["MONGO_URI"] = "mongodb+srv://srushtiporiwade02:happy49@cluster0.qa50c0v.mongodb.net/Plants"
+app.config["MONGO_URI"] = "your_mongo_uri/Plants"
 app.config["SECRET_KEY"] = "medflora"
 
 
@@ -1351,4 +1351,5 @@ def get_all_submissions():
 
 
 if __name__ == '__main__':
+
     app.run(host="0.0.0.0", port=5001, debug=True, use_reloader=False, threaded=False)
