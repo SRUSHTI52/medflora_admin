@@ -318,6 +318,8 @@ useEffect(() => {
     })
     .catch(err => console.error("KPI fetch error:", err));
 }, []);
+
+
   const [lineData, setLineData] = useState(null);
 const lineOptions = {
   responsive: true,
@@ -358,15 +360,24 @@ const lineOptions = {
   }
 };
   /* ===================== FETCH PREDICTION HISTORY ===================== */
-function aggregateByDate(data) {
+function aggregateByDate(data, normalize = false) {
   const grouped = {};
 
   data.forEach(item => {
-    const date = new Date(item.created_at).toISOString().split("T")[0]; // YYYY-MM-DD
+    const date = new Date(item.created_at).toISOString().split("T")[0];
+
+    let confidence = item.confidence;
+
+    // 🔥 Normalize if needed
+    if (normalize) {
+      confidence = confidence / 100;
+    }
+
     if (!grouped[date]) {
       grouped[date] = { sum: 0, count: 0 };
     }
-    grouped[date].sum += item.confidence;
+
+    grouped[date].sum += confidence;
     grouped[date].count += 1;
   });
 
@@ -378,25 +389,75 @@ function aggregateByDate(data) {
   return { labels, values };
 }
 
-useEffect(() => {
-  fetch("http://127.0.0.1:5001/api/prediction-history")
-    .then(res => res.json())
-    .then(json => {
-      const history = json.data;
+  // function aggregateByDate(data) {
+//   const grouped = {};
 
-      const { labels, values } = aggregateByDate(history);
+//   data.forEach(item => {
+//     const date = new Date(item.created_at).toISOString().split("T")[0]; // YYYY-MM-DD
+//     if (!grouped[date]) {
+//       grouped[date] = { sum: 0, count: 0 };
+//     }
+//     grouped[date].sum += item.confidence;
+//     grouped[date].count += 1;
+//   });
+
+//   const labels = Object.keys(grouped);
+//   const values = labels.map(
+//     d => Number((grouped[d].sum / grouped[d].count).toFixed(3))
+//   );
+
+//   return { labels, values };
+// }
+useEffect(() => {
+  Promise.all([
+    fetch("http://127.0.0.1:5001/api/prediction-history").then(res => res.json()),
+    fetch("http://127.0.0.1:5001/api/prediction-history-2").then(res => res.json())
+  ])
+    .then(([res1, res2]) => {
+      const history1 = res1.data;
+      const history2 = res2.data;
+
+      // ✅ Aggregate (normalize second dataset)
+      const agg1 = aggregateByDate(history1);
+      const agg2 = aggregateByDate(history2, true);
+
+      // 🔥 ONLY COMMON DATES
+      const commonDates = agg1.labels.filter(d => agg2.labels.includes(d));
+
+      // 🔥 Mapping function for specific date set
+      function mapToDates(labels, values, targetDates) {
+        const map = {};
+        labels.forEach((l, i) => {
+          map[l] = values[i];
+        });
+        return targetDates.map(d => map[d] ?? null);
+      }
+
+      const data1 = mapToDates(agg1.labels, agg1.values, commonDates);
+      const data2 = mapToDates(agg2.labels, agg2.values, commonDates);
 
       setLineData({
-        labels,
+        labels: commonDates,
         datasets: [
           {
-            label: "Average Confidence Score",
-            data: values,
+            label: "API Confidence",
+            data: data1,
             borderColor: "#c43fa7ff",
             backgroundColor: "rgba(196,63,167,0.12)",
             tension: 0.45,
             fill: true,
-            pointRadius: 0,        // 👈 hides clutter
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            borderWidth: 2
+          },
+          {
+            label: "Local Model Confidence",
+            data: data2,
+            borderColor: "#2a9d8f",
+            backgroundColor: "rgba(42,157,143,0.12)",
+            tension: 0.45,
+            fill: true,
+            pointRadius: 0,
             pointHoverRadius: 5,
             borderWidth: 2
           }
@@ -405,6 +466,92 @@ useEffect(() => {
     })
     .catch(err => console.error("Trend fetch error:", err));
 }, []);
+// useEffect(() => {
+//   Promise.all([
+//     fetch("http://127.0.0.1:5001/api/prediction-history").then(res => res.json()),
+//     fetch("http://127.0.0.1:5001/api/prediction-history-2").then(res => res.json())
+//   ])
+//     .then(([res1, res2]) => {
+//       const history1 = res1.data;
+//       const history2 = res2.data;
+
+// const agg1 = aggregateByDate(history1);          // already 0–1
+// const agg2 = aggregateByDate(history2, true);   // normalize 0–100 → 0–1
+
+//       // 🔥 Merge all dates
+//       const allDates = [...new Set([...agg1.labels, ...agg2.labels])].sort();
+
+//       // 🔥 Map values to merged dates
+//       function mapToDates(labels, values) {
+//         const map = {};
+//         labels.forEach((l, i) => {
+//           map[l] = values[i];
+//         });
+//         return allDates.map(d => map[d] ?? null);
+//       }
+
+//       const data1 = mapToDates(agg1.labels, agg1.values);
+//       const data2 = mapToDates(agg2.labels, agg2.values);
+
+//       setLineData({
+//         labels: allDates,
+//         datasets: [
+//           {
+//             label: "API Confidence",
+//             data: data1,
+//             borderColor: "#c43fa7ff",
+//             backgroundColor: "rgba(196,63,167,0.12)",
+//             tension: 0.45,
+//             fill: true,
+//             pointRadius: 0,
+//             pointHoverRadius: 5,
+//             borderWidth: 2
+//           },
+//           {
+//             label: "Local Model Confidence",
+//             data: data2,
+//             borderColor: "#2a9d8f",
+//             backgroundColor: "rgba(42,157,143,0.12)",
+//             tension: 0.45,
+//             fill: true,
+//             pointRadius: 0,
+//             pointHoverRadius: 5,
+//             borderWidth: 2
+//           }
+//         ]
+//       });
+//     })
+//     .catch(err => console.error("Trend fetch error:", err));
+// }, []);
+
+// single api trends
+// useEffect(() => {
+//   fetch("http://127.0.0.1:5001/api/prediction-history")
+//     .then(res => res.json())
+//     .then(json => {
+//       const history = json.data;
+
+//       const { labels, values } = aggregateByDate(history);
+
+//       setLineData({
+//         labels,
+//         datasets: [
+//           {
+//             label: "Average Confidence Score",
+//             data: values,
+//             borderColor: "#c43fa7ff",
+//             backgroundColor: "rgba(196,63,167,0.12)",
+//             tension: 0.45,
+//             fill: true,
+//             pointRadius: 0,        // 👈 hides clutter
+//             pointHoverRadius: 5,
+//             borderWidth: 2
+//           }
+//         ]
+//       });
+//     })
+//     .catch(err => console.error("Trend fetch error:", err));
+// }, []);
 
   /* ===================== UI ===================== */
 
